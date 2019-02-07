@@ -6,9 +6,221 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(130, 0, 130)
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+/*************************************************
+ Banner
+*************************************************/
+header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 10vh;
+  background-image: radial-gradient(rgb(0, 5, 20), rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 70, 5));
+  color: white;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px 3px 10px black;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  padding-left: 10px;
+  text-shadow: 0 1px 5px yellow
+}
+
+
+/************************************************
+ Cards
+*************************************************/
+.card {
+  height: 9vh;
+  background-color: rgb(255, 238, 217);
+}
+
+#topCardHolder {
+  position: fixed;
+  top: 2vh;
+  z-index: 999;
+  width: 100%;
+  height: 15vh;
+  /*border: 2px solid yellow;
+  box-sizing: border-box;*/
+}
+#card1 {
+  margin: 6vh auto;
+  width: 95%;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px 5px 5px black;
+}
+
+#botCardHolder {
+  z-index: 999;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -7vh;
+
+ /* border: 2px solid yellow;
+  box-sizing: border-box;*/
+}
+#card2 {
+  margin: 0vh auto;
+  width: 95%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  box-shadow: 0px -5px 5px black;
+}
+
+
+/****************************************************
+  Chord Backdrop
+****************************************************/
+#chordBackdrop {
+  position: fixed;
+  top: 10vh;
+  z-index: 100;
+  width: 100%;
+  height: 70vh;
+  background-image: radial-gradient(rgb(15, 0, 15), rgb(30, 0, 30), rgb(60, 0, 60), rgb(130, 0, 130));
+}
+
+
+
+
+
+
+
+
+#slide {
+  position: fixed;
+  top: 10vh;
+  z-index: 998;
+ /* border: 2px solid red; */
+  height: 90vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+#spacer{
+  position: relative;
+  z-index: 998;
+  border: 2px solid green;
+  height: 65vh;
+  margin: 0;
+}
+/***************************************************
+Description
+****************************************************/
+#description {
+  position: relative;
+  z-index: 999;
+  height: 70vh;
+  background-image: radial-gradient(rgb(0, 5, 20), rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 70, 5));
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  box-shadow: 0px -3px 10px black;
+}
+#triHolder {
+  border: 2px solid yellow;
+  height: 0;
+}
+#triangle {
+  z-index: 1000;
+  height: 0;
+  width: 0;
+  border-left: 4vh solid transparent;
+  border-right: 4vh solid transparent;
+  border-bottom: 8vh solid gold;
+  margin: -6vh auto 0;
+  -webkit-filter: drop-shadow(0px 0px 10px yellow);
+  filter: drop-shadow(0px 0px 10px yellow);
+}
+#chordHolder {
+  height: 10vh;
+  width: 95%;
+  margin: 2vh auto 0;
+  border: 2px solid yellow;
+  box-sizing: border-box;
+}
+#panelWrap {
+  height: 40vh;
+  width: 95%;
+  margin: 2vh auto 2vh;
+ /* border: 2px solid yellow;
+  box-sizing: border-box;*/
+}
+#panel1 {
+  width: 100%;
+  height: 100%;
+}
+#root {
+  height: 50%;
+  width: 50%;
+  float: left;
+  margin: 0;
+  border: 2px solid orchid;
+  box-sizing: border-box;
+}
+#mode {
+  height: 50%;
+  width: 50%;
+  float: left;
+  border: 2px solid blue;
+  box-sizing: border-box;
+}
+#triad {
+  height: 25%;
+  width: 100%;
+  float: left;
+  border: 2px solid red;
+  box-sizing: border-box;
+}
+#extensions {
+  height: 25%;
+  width: 100%;
+  float: left;
+  border: 2px solid cyan;
+  box-sizing: border-box;
+}
+#panelNav {
+  height: 10vh;
+  width: 95%;
+  margin: 0 auto 2vh;
+  padding: 0;
+  list-style: None;
+  /*box-sizing: border-box;
+  border: 2px solid yellow;*/
+}
+#panelNav :nth-child(2) {
+  margin: 0 1.5%;
+}
+#panelNav li {
+  display: inline-block;
+  width: 32.33%;
+  height: 100%;
+  background-color: white;
+  text-align: center;
+  font-size: .5em;
+  border-radius: 2px;
+}
+#panelNav li h6{
+  margin: 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#content {
+  height: 90vh;
+  margin-top: 10vh;
+}
+.hide {
+  display: None;
 }
