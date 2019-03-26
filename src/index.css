@@ -62,7 +62,7 @@ header h1 {
   z-index: 999;
   width: 100%;
   height: 15%;
-  border: 2px solid yellow;
+  /*border: 2px solid yellow;*/
   box-sizing: border-box;
 }
 #card1 {
@@ -97,20 +97,54 @@ header h1 {
 #chordBackdrop {
   position: fixed;
   top: 10%;
-  z-index: 100;
+  z-index: 999;
   width: 100%;
   height: 80%;
   background-image: radial-gradient(rgb(15, 0, 15), rgb(30, 0, 30), rgb(60, 0, 60), rgb(130, 0, 130));
+  border: 3px solid yellow;
+  box-sizing: border-box;
+  align-content:center;
 }
-
-
-
+#svg-list {
+  position:relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow-x: scroll;
+  box-sizing: border-box;
+  border: 3px solid red;
+  z-index: 1000;
+}
+#svg-list li {
+  flex: none;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 3px solid cyan;
+  z-index: 100000;
+}
+.the-svg {
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-60%);
+}
+#chord-diagram {
+  widows: 100%;
+  height: 100%;
+  border: 2px solid cyan;
+  box-sizing: border-box;
+}
 
 #slide {
   position: fixed;
   top: 0;
   z-index: 998;
-  border: 2px solid red;
+  /*border: 2px solid red;*/
   height: 100%;
   width: 100%;
   overflow-y: scroll;
@@ -118,7 +152,7 @@ header h1 {
 }
 #spacer{
   position: relative;
-  z-index: 998;
+  z-index: -998;
   border: 2px solid green;
   box-sizing: border-box;
   height: 86%;
@@ -129,7 +163,7 @@ Description
 ****************************************************/
 #description {
   position: relative;
-  z-index: 999;
+  z-index: 1000;
   height: 70%;
   background-image: radial-gradient(rgb(0, 5, 20), rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 70, 5));
   border-top-right-radius: 10px;
@@ -157,7 +191,7 @@ Description
 #chordHolder {
   height: 20%;
   width: 100%;
-  margin: 0 auto 0;
+  margin: 2% auto 2%;
   padding: 0;
   display: flex;
   overflow-x: scroll;
@@ -167,9 +201,10 @@ Description
   -webkit-scroll-snap-type: mandatory;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  
-  /* border: 2px solid yellow;
-  box-sizing: border-box;*/
+  background-color: rgb(26, 65, 26);
+  /*border: 2px solid yellow;*/
+  box-sizing: border-box;
+  overflow: auto;
 }
 #chordHolder li {
   scroll-snap-align: center; 
@@ -179,56 +214,189 @@ Description
   width: 33.33%;
   height: 100%;
   display: inline-block;
-  background-color: white;
+  border: 1px solid black;
   box-sizing: border-box;
-  border: 1px solid green;
-  color: red;
+  color: white;
+  /*text-align: center;*/
+  font-size: .9em
+}
+#chordHolder li h6 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  margin-left: -100%;
+  margin-right: -100%;
   text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#chordHolder li.selected {
+  font-size: 1.9em;
+  text-decoration: underline;
+  text-shadow: 0 1px 10px black;
+  border-bottom: 2px solid gold
 }
 
 
 
-
+.panel-wrap {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(26, 65, 26);
+}
 #panelWrap {
   height: 70%;
   width: 95%;
   margin: 0 auto 0;
-  border: 2px solid yellow;
+  /*border: 2px solid yellow;*/
   box-sizing: border-box;
 }
 #panel1 {
   width: 100%;
   height: 100%;
 }
-#root {
+#theroot {
   height: 50%;
   width: 50%;
   float: left;
   margin: 0;
-  border: 2px solid orchid;
+  /*border: solid orchid;*/
+  border-width: 2px 2px 2px 0;
+  
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: center;
 }
+#theroot h3{
+  box-sizing: border-box;
+  padding-top: 10%;
+  height: 30%;
+
+}
+#theroot h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.8em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#root-container {
+  margin: 2%;
+  height: 70%
+}
+#the-root {
+  width: 58%;
+  height: 50%;
+  margin-right: 2%;
+  float: left;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+}
+#root-menu {
+  width: 58%;
+  height: 240%;
+  float: left;
+  overflow: scroll;
+  list-style: none;
+  margin: 0 2% 0 0;
+  padding: 0;
+  background-color: white;
+  color: black;
+  position: relative;
+  border-radius:2px;
+  z-index: 1000;
+}
+#root-menu li {
+  height: 14%;
+  z-index: 1001;
+}
+#the-accidental {
+  width: 40%;
+  height: 50%;
+  float: left;
+  background-color: white;
+  color: black;
+  border-radius:2px;
+}
+#accidental-menu {
+  width: 40%;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1000;
+  background-color: white;
+  color: black;
+  float: left;
+  position: relative;
+  border-radius: 2px;
+  overflow: scroll;
+}
+#accidental-menu li {
+  height: 33%;
+  z-index: 1001;
+}
+
+
 #mode {
   height: 50%;
   width: 50%;
   float: left;
+  margin: 0;
+  /*border: solid orchid;*/
+  border-width: 2px 2px 2px 0;
+  
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: center;
+  /*height: 50%;
+  width: 50%;
+  float: left;
   border: 2px solid blue;
   box-sizing: border-box;
+  text-align: center;*/
 }
-#triad {
-  height: 25%;
-  width: 100%;
-  float: left;
-  border: 2px solid red;
+#mode h3 {
   box-sizing: border-box;
+  height: 30%;
+  padding-top: 10%;
 }
-#extensions {
-  height: 25%;
-  width: 100%;
-  float: left;
-  border: 2px solid cyan;
-  box-sizing: border-box;
+#mode h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
+#mode-container {
+  margin: 2%;
+  height: 70%;
+}
+#the-mode {
+  height: 50%;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+}
+#mode-list {
+  background-color: white;
+  color: black;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+  height: 240%;
+  border-radius: 2px;
+  overflow: scroll;
+}
+#mode-list li {
+  height: 14%;
+}
+
 #panelNav {
   height: 10%;
   width: 95%;
@@ -236,7 +404,7 @@ Description
   padding: 0;
   list-style: None;
   box-sizing: border-box;
-  border: 2px solid yellow;
+  /*border: 2px solid yellow;*/
 }
 #panelNav li {
   margin: 0;
@@ -294,7 +462,7 @@ Description
   font-size: 50%;
   background-color: lightgreen;
 }
-h6{
+.tab-list-item h6{
   font-size: 1.5em;
   margin: 0;
   padding: 0;
@@ -325,38 +493,35 @@ h6{
   padding: 0;
 }
 
-#root {
-  height: 50%;
-  width: 50%;
-  float: left;
-  margin: 0;
-  border: 2px solid orchid;
-  box-sizing: border-box;
-  text-align: center;
-}
-#mode {
-  height: 50%;
-  width: 50%;
-  float: left;
-  border: 2px solid blue;
-  box-sizing: border-box;
-  text-align: center;
-}
-#triad {
+/*-----------------------------------------------
+note selection */
+
+#triad, #extensions {
   height: 25%;
   width: 100%;
   padding: 2% 0 2% 0;
   float: left;
-  border: 2px solid red;
+  /*border: 2px solid cyan;*/
   box-sizing: border-box;
   text-align: left;
 }
-#triad h3 {
+#extensions {
+  /*border: 2px solid red;*/
+}
+#triad h3, #extensions h3 {
   width: 25%;
   height: 100%;
   float: left;
 }
-#tri-list {
+#triad h3 span, #extensions h3 span {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#tri-list, #ext-list {
   width: 75%;
   height: 100%;
   float: left;
@@ -370,19 +535,7 @@ h6{
   width: 15%;
   margin: 0 9%;
   height: 100%;
-}
-#extensions h3 {
-  width: 25%;
-  height: 100%;
-  float: left;
-}
-#ext-list {
-  width: 75%;
-  height: 100%;
-  float: left;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  overflow: auto;
 }
 #ext-list li {
   display: inline-block;
@@ -390,14 +543,19 @@ h6{
   width: 15%;
   margin: 0 5%;
   height: 100%;
+  overflow: auto;
+}
+#tri-list h6, #ext-list h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-#extensions {
-  height: 25%;
-  width: 100%;
-  padding: 2% 0 2% 0;
-  float: left;
-  border: 2px solid cyan;
+#tri-list li.selected-note, #ext-list li.selected-note {
+  color: red;
+  border: 1px solid blue;
   box-sizing: border-box;
-  text-align: left;
 }

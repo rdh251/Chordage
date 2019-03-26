@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import store from './store/index.js';
+import {connect} from 'react-redux';
+import theReducer from './reducers/index.js';
+import { changeActiveIndex } from './actions/index.js';
 
-class Selector extends Component {
+const mapStateToProps = state => {
+    return {
+        chords: state.chords,
+        active_index: state.active_index
+    }
+}
+
+class connected_Selector extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            items: 8,
-            activeIndex: 0
-        }
         this.handleScroll = this.handleScroll.bind(this);
     }
     handleScroll() {
@@ -14,29 +21,35 @@ class Selector extends Component {
         let scrollOffset = el.scrollLeft;
         let itemWidth = el.offsetWidth / 3.0;
         let i = 0;
-        while((i) * itemWidth <= scrollOffset - (itemWidth/2.0)) {
+        while ((i) * itemWidth <= scrollOffset - (itemWidth/2.0)) {
             i++;
         }
-        this.state.activeIndex = i;
-        console.log(this.state.activeIndex);
-        console.log(this.props.children);
+        if (i !== this.props.active_index) {
+            store.dispatch( changeActiveIndex(i) );
+        }
     }
 
     render() {
+        const {props: {
+                chords,
+                active_index,
+            },
+            handleScroll
+        } = this;
         return (
-        <ul id='chordHolder' onScroll={this.handleScroll}>
-            <li></li>
-            <li>item 0</li>
-            <li>item 1</li>
-            <li>item 2</li>
-            <li>item 3</li>
-            <li>item 4</li>
-            <li>item 5</li>
-            <li>item 6</li>
-            <li>item 7</li>
-            <li></li>
-          </ul>
+            <ul id='chordHolder' onScroll={handleScroll}>
+                <li></li>
+                {chords.map((child, index) => {
+                    if (index === active_index) { 
+                        return (<li className='selected'><h6>{child.getNameAsString()}</h6></li>);
+                    } else {
+                        return (<li><h6>{child.getNameAsString()}</h6></li>);
+                    }
+                })}
+                <li></li>
+            </ul>
         );
     }
 }
+const Selector = connect(mapStateToProps)(connected_Selector); 
 export default Selector;

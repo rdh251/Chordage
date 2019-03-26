@@ -3,7 +3,9 @@ import Select from 'react-select';
 import Header from './Header.js';
 import Cards, {Card1, Card2, Card3} from './Cards.js';
 import Tabs from './Tabs.js';
-import Selector from './Selector.js'
+import Selector from './Selector.js';
+import DCPanel from './defineChordPanel.js';
+import ChordViz from './chordViz.js';
 import './App.css';
 
 const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -16,10 +18,11 @@ class App extends Component {
       <div className="Wrapper">
         <Header />
         <div id='topCardHolder'>
-          <Card1 />
         </div>
-        <div id="chordBackdrop"></div>
         <div id="slide">
+          <div id="chordBackdrop">
+            <ChordViz />
+          </div>
           <div id='spacer'></div>
           <div id='triHolder'>
             <div id='triangle'></div>
@@ -28,54 +31,21 @@ class App extends Component {
             <Selector />
             <Tabs>
               <div id='define' label='Define Chord'>
-                <div id='root'>
-                  <h3>Root:</h3>
-                  <Select 
-                    options={letter_options}
-                    onChange={opt => console.log(opt.value)}
-                    className={'root'}
-                    classNamePrefix={'rooter'}
-                    styles={
-                      {option: (state) => ({
-                        borderBottom: '2px solid red',
-                        height: '50%',
-                        color: 'black',
-                      }),
-                      valueContainer:(state) => ({
-                        overflow: 'scroll',
-                      })
-
-                    }
-                    }
-
-                  />
-                </div>
-                <div id='mode'>
-                  <h3>Mode:</h3>
-                </div>
-                <div id='triad'>
-                  <h3>Triad:</h3>
-                  <ul id='tri-list'>
-                    <li>1</li>
-                    <li>3</li>
-                    <li>5</li>
-                  </ul>
-                </div>
-                <div id='extensions'>
-                  <h3>Ext:</h3>
-                  <ul id='ext-list'>
-                    <li>7</li>
-                    <li>9</li>
-                    <li>11</li>
-                    <li>13</li>
-                  </ul>
-                </div>
+                <DCPanel />
               </div>
               <div id='set' label='Set Note'>
-                In a while!
+                <ChordViz />
               </div>
               <div id='search' label='Search Space'>
-                Sticks!
+                <div>
+                  <label>Low Fret: </label>
+                  <input></input>
+                </div>
+                <div>
+                  <label>High Fret: </label>
+                  <input></input>
+                </div>
+                <button>Submit</button>
               </div> 
             </Tabs>
           </div>
@@ -86,6 +56,9 @@ class App extends Component {
 }
 
 export default App;
+/*<input></input>
+<button>Submit</button>
+*/
 /*
           <div id='botCardHolder'>
             <Card2 />
@@ -108,3 +81,24 @@ export default App;
 <li><h6>Search<br/>Space</h6></li>
 </ul>
 */
+
+/*
+                  <Select 
+                    options={letter_options}
+                    onChange={opt => console.log(opt.value)}
+                    className={'root'}
+                    classNamePrefix={'rooter'}
+                    styles={
+                      {option: (state) => ({
+                        borderBottom: '2px solid red',
+                        height: '50%',
+                        color: 'black',
+                      }),
+                      valueContainer:(state) => ({
+                        overflow: 'scroll',
+                      })
+
+                    }
+                    }
+
+                  /> */
