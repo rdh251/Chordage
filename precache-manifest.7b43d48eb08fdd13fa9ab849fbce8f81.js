@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/Chordage/static/js/runtime~main.473deb00.js"
   },
   {
-    "revision": "75e85ca8a74dade3c124",
-    "url": "/Chordage/static/js/main.75e85ca8.chunk.js"
+    "revision": "2cd710ace6a93473a7ff",
+    "url": "/Chordage/static/js/main.2cd710ac.chunk.js"
   },
   {
     "revision": "09944adeb391ea04bca1",
     "url": "/Chordage/static/js/2.09944ade.chunk.js"
   },
   {
-    "revision": "75e85ca8a74dade3c124",
-    "url": "/Chordage/static/css/main.2a9f9d53.chunk.css"
+    "revision": "2cd710ace6a93473a7ff",
+    "url": "/Chordage/static/css/main.bbbcd43f.chunk.css"
   },
   {
-    "revision": "7bad95edeea3cd08b0b009fc2f82f3a2",
+    "revision": "8b5a3b74c3e9ec94ec2206a07984158a",
     "url": "/Chordage/index.html"
   }
 ];
