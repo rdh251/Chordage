@@ -30,8 +30,8 @@ export class general_chord {
         this.root = A;
         this.accidental = NATURAL 
         this.mode = IONIAN;
-        this.tri_notes = [true, true, false];
-        this.ext_notes = [true, false, false, false];
+        this.tri_notes = [true, true, true];
+        this.ext_notes = [false, false, false, false];
     }
     getNameAsString() {
         let string_name = this.root

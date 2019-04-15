@@ -6,26 +6,59 @@ import Tabs from './Tabs.js';
 import Selector from './Selector.js';
 import DCPanel from './defineChordPanel.js';
 import ChordViz from './chordViz.js';
+import ChordBackdrop from './chordBackdrop.js';
 import './App.css';
 
 const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 let letter_options = letters.map(opt => ({label: opt, value: opt}));
 
 class App extends Component {
+  triRotate() {
+      let el = document.getElementById('slide')
+      let scroll_percentage = el.scrollTop / (el.scrollHeight-el.clientHeight);
+      let rotation = 540 * scroll_percentage;
+      let tri = document.getElementById('triangle');
+      tri.style.transform = 'rotate('+rotation+'deg)';         
+  }
   render() {
-    console.log(window.innerHeight);
+    function scrollTo() {
+      let duration = 400;
+      let el = document.getElementById('slide');
+      let height = el.scrollHeight-el.clientHeight;
+      
+      let scroll_percentage = el.scrollTop / (el.scrollHeight-el.clientHeight);
+      let to;
+      if(scroll_percentage < .5) {
+        to = height;
+      } else {
+        to = 0
+      }
+      var difference = to - el.scrollTop;
+      var perTick = difference / duration * 10;
+      let scrolling = setInterval(function() {
+        el.scrollTop = el.scrollTop + perTick;
+        if (el.scrollTop === to) {
+          clearInterval(scrolling);
+        }
+      }, 10);
+    }
+    const {
+      triRotate,
+    } = this;
     return (
       <div className="Wrapper">
         <Header />
         <div id='topCardHolder'>
+          <Card1 />
         </div>
-        <div id="slide">
-          <div id="chordBackdrop">
-            <ChordViz />
-          </div>
+        <div id="slide" onScroll={triRotate}>
+          <ChordBackdrop />
           <div id='spacer'></div>
           <div id='triHolder'>
-            <div id='triangle'></div>
+            <div id='triangle' onClick={scrollTo}></div>
+          </div>
+          <div id='botCardHolder'>
+            <Card2 />
           </div>
           <div id='description'>
             <Selector />
@@ -33,11 +66,9 @@ class App extends Component {
               <div id='define' label='Define Chord'>
                 <DCPanel />
               </div>
-              <div id='set' label='Set Note'>
-                <ChordViz />
-              </div>
+
               <div id='search' label='Search Space'>
-                <div>
+                <div style={{marginBottom: '10%', marginTop: '10%', textAlign: 'center'}}>
                   <label>Low Fret: </label>
                   <input></input>
                 </div>
@@ -56,49 +87,16 @@ class App extends Component {
 }
 
 export default App;
-/*<input></input>
+/*
+<div id='set' label='Unknown Button' style={{marginTop: '10%', alignContent: 'center'}}>
+<label>Set Note: </label>
+<input></input>
 <button>Submit</button>
+</div>
 */
+
 /*
           <div id='botCardHolder'>
             <Card2 />
           </div>
 */
-/*
-<div id='panelWrap'>
-<div id='panel1'>
-  <div id='root'></div>
-  <div id='mode'></div>
-  <div id='triad'></div>
-  <div id='extensions'></div>
-</div>
-<div id='panel2' className='hide'></div>
-<div id='panel3' className='hide'></div>
-</div>
-<ul id='panelNav'>
-<li><h6>Chord<br/>Description</h6></li>
-<li><h6>Set<br/>Note</h6></li>
-<li><h6>Search<br/>Space</h6></li>
-</ul>
-*/
-
-/*
-                  <Select 
-                    options={letter_options}
-                    onChange={opt => console.log(opt.value)}
-                    className={'root'}
-                    classNamePrefix={'rooter'}
-                    styles={
-                      {option: (state) => ({
-                        borderBottom: '2px solid red',
-                        height: '50%',
-                        color: 'black',
-                      }),
-                      valueContainer:(state) => ({
-                        overflow: 'scroll',
-                      })
-
-                    }
-                    }
-
-                  /> */

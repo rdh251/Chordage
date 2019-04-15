@@ -74,13 +74,14 @@ header h1 {
 }
 
 #botCardHolder {
+  position: relative;
   z-index: 999;
   width: 100%;
   height: 15%;
-  margin-bottom: -7vh;
+  margin-bottom: -15%;
 
- /* border: 2px solid yellow;
-  box-sizing: border-box;*/
+  border: 2px solid yellow;
+  box-sizing: border-box;
 }
 #card2 {
   margin: 0vh auto;
@@ -89,7 +90,39 @@ header h1 {
   border-top-left-radius: 10px;
   box-shadow: 0px -5px 5px black;
 }
+#card2 div {
+  margin: 2%;
+  padding: 0;
+  width: 35%;
+  height: 50%;
+  box-sizing: border-box;
+  border: 1px solid red;
+  font-size: .5em;
+  text-align: center;
+  border-radius: 4px;
+  float: left;
+}
+#card2 div:nth-child(2){
+  margin-left: 24%;
+}
 
+#option-menu{
+  position: relative;
+  top:50%;
+  width: 50%;
+  margin: -50% auto 0;
+  list-style: none;
+  padding: 0;
+  z-index: 99999999999;
+  background-color: white;
+  color: black;
+  float: left;
+  border-radius: 2px;
+}
+#card2 h3 {
+  margin: 0;
+  padding: 0;
+}
 
 /****************************************************
   Chord Backdrop
@@ -105,6 +138,38 @@ header h1 {
   box-sizing: border-box;
   align-content:center;
 }
+#index-indicator {
+  position: fixed;
+  width: 100%;
+  top: 76%;
+  font-size: .7em;
+  box-sizing: border-box;
+  /*border: 1px solid lightgreen;*/
+  padding: 0;  
+  margin: auto;
+  color: white;
+  z-index: 100000000;
+  text-align: center;
+}
+#l-cDiagram-arrow {
+  position: fixed;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid gold;
+  width: 10px;
+  top: 50%;
+  left: 5%;
+}
+#r-cDiagram-arrow {
+  position: fixed;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid gold;
+  width: 10px;
+  top: 50%;
+  left: 90%;
+}
+
 #svg-list {
   position:relative;
   height: 100%;
@@ -116,6 +181,13 @@ header h1 {
   box-sizing: border-box;
   border: 3px solid red;
   z-index: 1000;
+  
+  scroll-snap-points-x: repeat(100%);
+  scroll-snap-type: mandatory;
+  ms-scroll-snap-type: mandatory;
+  -webkit-scroll-snap-type: mandatory;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 #svg-list li {
   flex: none;
@@ -125,6 +197,10 @@ header h1 {
   box-sizing: border-box;
   border: 3px solid cyan;
   z-index: 100000;
+
+  scroll-snap-align: center; 
+  scroll-snap-coordinate: 0 0;
+  -webkit-scroll-snap-coordinate: 0 0;
 }
 .the-svg {
   display: block;
@@ -173,15 +249,17 @@ Description
 #triHolder {
   border: 1px solid transparent;
   height: 1px;
+  z-index:1000000
 }
 #triangle {
-  z-index: 1000;
+  z-index: 1000000;
+  position: relative;
   height: 0;
   width: 0;
-  border-left: 4vh solid transparent;
-  border-right: 4vh solid transparent;
-  border-bottom: 8vh solid gold;
-  margin: -6vh auto 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 32px solid gold;
+  margin: 20px auto 0;
   -webkit-filter: drop-shadow(0px 0px 10px yellow);
   filter: drop-shadow(0px 0px 10px yellow);
 }
@@ -397,39 +475,6 @@ Description
   height: 14%;
 }
 
-#panelNav {
-  height: 10%;
-  width: 95%;
-  margin: auto;
-  padding: 0;
-  list-style: None;
-  box-sizing: border-box;
-  /*border: 2px solid yellow;*/
-}
-#panelNav li {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 32.33%;
-  height: 100%;
-  background-color: white;
-  text-align: center;
-  font-size: .5em;
-  border-radius: 2px;
-}
-#panelNav :nth-child(2) {
-  margin: 0 1.5%;
-}
-/*#panelNav li h6{
-  margin: 0;
-  padding: 0;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}*/
-.hide {
-  display: None;
-}
 
 
 
@@ -441,7 +486,7 @@ Description
   height: 80%;
 }
 /***************************************************
-  Tab Navigation
+Tab Navigation
 ****************************************************/
 .tab-list {
   border-bottom: 2px solid white;
@@ -452,7 +497,7 @@ Description
 }
 .tab-list-item {
   height: 100%;
-  width: 32.33%;
+  width: 49%;
   box-sizing: border-box;
   display: inline-block;
   list-style: none;
@@ -471,7 +516,7 @@ Description
   transform: translateY(-50%);
 }
 .tab-list :nth-child(2) {
-  margin: 0 1.5%;
+  margin: 0 0 0 2%;
 }
 .tab-list-active {
   background-color:lightgreen;
@@ -479,7 +524,7 @@ Description
   border-width: 0px 2px 2px 2px;
 }
 /********************************************
-  Tab Panels
+Tab Panels
 *********************************************/
 .tab-content {
   color: white;
@@ -558,4 +603,9 @@ note selection */
   color: red;
   border: 1px solid blue;
   box-sizing: border-box;
+}
+
+/****************************************************************/
+.hide {
+  display: None;
 }

@@ -45,14 +45,14 @@ export class chord_finder {
     constructor() {
         this.tuning=[E, A, D, G, B, E]; 
         this.active_strings = [true, false, true, true, true, false];
-        this.low_fret_bound = 2;
+        this.low_fret_bound = 3;
         this.high_fret_bound = 7;
         this.required_notes= [];
         this.general_notes=[];
     }
     find_general_scale(general_chord){
         let general_notes = [new general_note(general_chord.root, general_chord.accidental)];
-        let stepper = [2, 2, 1, 2, 2, 2, 1];
+        let stepper = [2, 2, 1, 2, 2, 2, 1]; // whole tone or halftone step orderings
         let mode = general_chord.mode;
         
         let step_start = 0
@@ -80,20 +80,17 @@ export class chord_finder {
                 if (index >= temp_string.length) {
                     index = index % temp_string.length;
                 }
-                //console.log(stepper[step_finder]);
-               // console.log(temp_string[index]);
                 if (temp_string[index] === '*') {
                     if(index + 1 === temp_string.length) {
                         top_7.push(new general_note(temp_string[0], FLAT));
                     } else {
                         top_7.push(new general_note(temp_string[index + 1], FLAT));
-                       // console.log('right');
+
                     }
                 } else {
-                    //console.log('wrong');
+
                     top_7.push(new general_note(temp_string[index], NATURAL));
                 }
-                //console.log('\n\n****************');
             }
             return top_7; 
         }
@@ -133,9 +130,9 @@ export class chord_finder {
             start_fret++;
             if (start_fret >= temp_string.length){
                 start_fret = 0;
-                general_notes = general_notes.concat(build_sharp_scale(start_fret));
-                return(general_notes);
             }
+            general_notes = general_notes.concat(build_sharp_scale(start_fret));
+            return(general_notes);
         } else {
             let flat_scale = general_notes.concat(build_flat_scale(start_fret));
             let sharp_scale = general_notes.concat(build_sharp_scale(start_fret));
@@ -181,8 +178,8 @@ export class chord_finder {
         let the_scale = this.find_general_scale(general_chord);
         let notes_in_chord = []
         for(let i = 0; i < the_scale.length; i++) {
-            if(i === 0 || i === 2 || i === 5) {
-                if(general_chord.tri_notes[i/2]){
+            if(i === 0 || i === 2 || i === 4) {
+                if(general_chord.tri_notes[Math.floor(i/2)]){
                     notes_in_chord.push(the_scale[i]);
                 }
             } else {
@@ -213,36 +210,40 @@ export class chord_finder {
             tuning_temp_indexes.push(start_fret);
         }
 
+
         let string_potentials = [];
         for (let i = 0; i < tuning_temp_indexes.length; i++){
             string_potentials.push([]);
-            for(let j = 0; j < h_fret_bound-l_fret_bound; j++) {
-                let temp_index = tuning_temp_indexes[i] + l_fret_bound + j;
+            for(let j = 0; j < h_fret_bound-l_fret_bound - 1; j++) { // Not sure why - 1 is needed here to 
+                let temp_index = tuning_temp_indexes[i] + l_fret_bound + j; // the correct upper bound
                 if (temp_index >= temp_string.length) {
                     temp_index = temp_index % temp_string.length;
                 }
-                //console.log(temp_index);
-                for(let k = 0; k < chord_notes.length; k++) {                    
+                for(let k = 0; k < chord_notes.length; k++) {                 
                     if (chord_notes[k].accidental === FLAT) {
                         if (temp_string[temp_index + 1] === chord_notes[k].root) {
-                            string_potentials[i].push((temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length);
-                            //string_potentials[i].push();
+                            let the_note = new general_note(chord_notes[k].root, chord_notes[k].accidental);
+                            let the_index = (temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length;
+                            string_potentials[i].push({index:the_index, note:the_note});
                         }
                     } else if (chord_notes[k].accidental === SHARP) {
                         if (temp_string[temp_index - 1] === chord_notes[k].root) {
-                            string_potentials[i].push((temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length);
-                          //  string_potentials[i].push();
+                            let the_note = new general_note(chord_notes[k].root, chord_notes[k].accidental);
+                            let the_index = (temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length;
+                            string_potentials[i].push({index:the_index, note:the_note});
                         }
                     } else {
                         if(temp_string[temp_index] === chord_notes[k].root) {
-                            string_potentials[i].push((temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length);
+                            let the_note = new general_note(chord_notes[k].root, chord_notes[k].accidental);
+                            let the_index=(temp_index + temp_string.length - tuning_temp_indexes[i]) % temp_string.length;
+                            string_potentials[i].push({index:the_index, note:the_note});
                         }
                     }
                 }
             } 
             string_potentials[i].push(null);
-            //console.log('/n****************************');
         }
+
         let arr = string_potentials;
         let n = arr.length;
         let indices = Array(n).fill(0);
@@ -252,12 +253,14 @@ export class chord_finder {
             let new_chord = []
             let lowest_fret = 1000;
             let highest_fret = -1000;
+            let val;
             for (let i = 0; i < n; i++) {
-                let val = arr[i][indices[i]];
-                if (val != 0 && val > highest_fret) {
+                val = arr[i][indices[i]];
+                /* 0s and nulls not included in determining how many frets a chord spans */
+                if (val != 0 && val !== null && val > highest_fret) {
                     highest_fret = val;
                 }
-                if (val != 0 && val < lowest_fret) {
+                if (val != 0 && val !== null && val < lowest_fret) {
                     lowest_fret = val;
                 } 
                 new_chord.push(val);
