@@ -1,13 +1,13 @@
 {
-  "main.css": "/Chordage/static/css/main.3b3ef2fc.chunk.css",
-  "main.js": "/Chordage/static/js/main.ca11910a.chunk.js",
-  "main.js.map": "/Chordage/static/js/main.ca11910a.chunk.js.map",
+  "main.css": "/Chordage/static/css/main.cb924ea8.chunk.css",
+  "main.js": "/Chordage/static/js/main.483b1264.chunk.js",
+  "main.js.map": "/Chordage/static/js/main.483b1264.chunk.js.map",
   "runtime~main.js": "/Chordage/static/js/runtime~main.473deb00.js",
   "runtime~main.js.map": "/Chordage/static/js/runtime~main.473deb00.js.map",
   "static/js/2.12eb6e5f.chunk.js": "/Chordage/static/js/2.12eb6e5f.chunk.js",
   "static/js/2.12eb6e5f.chunk.js.map": "/Chordage/static/js/2.12eb6e5f.chunk.js.map",
   "index.html": "/Chordage/index.html",
-  "precache-manifest.d497191372b950479f95ab7614ac742d.js": "/Chordage/precache-manifest.d497191372b950479f95ab7614ac742d.js",
+  "precache-manifest.ba0e69b86e267feeed9af6e60234f38a.js": "/Chordage/precache-manifest.ba0e69b86e267feeed9af6e60234f38a.js",
   "service-worker.js": "/Chordage/service-worker.js",
-  "static/css/main.3b3ef2fc.chunk.css.map": "/Chordage/static/css/main.3b3ef2fc.chunk.css.map"
+  "static/css/main.cb924ea8.chunk.css.map": "/Chordage/static/css/main.cb924ea8.chunk.css.map"
 }
