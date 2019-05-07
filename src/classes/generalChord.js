@@ -1,23 +1,17 @@
+// Copyright 2019 Ross Hall
+/* generalChord.js holds the data structures storing information
+about a general chord. THis is how the information the user enters 
+in the control panel is organized and stored */
 import {
     A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    SHARP,
     NATURAL,
-    FLAT,
     IONIAN,
-    DORIAN,
-    PHRYGIAN,
     LYDIAN,
     MIXOLYDIAN,
-    AEOLIAN,
     LOCRIAN,
 } from '../constants/music'
-
+/* general note refers to the name of a note without relation to
+ where a note can be found on a fretboard*/
 export class general_note {
     constructor(the_root, the_accidental) {
         this.root = the_root;
@@ -25,6 +19,8 @@ export class general_note {
     }
 }
 
+/* general chord organizes the information needed to describe a chord
+wthout relation to where that chord might be played on a frettboard*/
 export class general_chord {
     constructor() {
         this.root = A;
@@ -33,6 +29,10 @@ export class general_chord {
         this.tri_notes = [true, true, true];
         this.ext_notes = [false, false, false, false];
     }
+    /* Determines a name for the general chord based on the 
+    inputs provided. In the future this will be changed to
+    represent more of a pseudo name that is altered after a 
+    specific chord is selected by the user.*/
     getNameAsString() {
         let string_name = this.root
         if (this.accidental !== NATURAL) {
@@ -59,6 +59,7 @@ export class general_chord {
         return string_name;
     }
 }
+// makes a clone of a general_chord object.
 export function generalCopy(clone, old) {
     clone.root = old.root;
     clone.accidental = old.accidental;

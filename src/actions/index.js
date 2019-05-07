@@ -1,3 +1,7 @@
+// Copyright 2019 Ross Hall
+
+/* The actions are passed to the reducers and are
+used to indicate how the state should be changed*/ 
 import { 
     CHANGE_PROGRESSION,
     CHANGE_ACTIVE_INDEX,
@@ -6,7 +10,8 @@ import {
     CHANGE_MODE,
     CHANGE_TRI_NOTES,
     CHANGE_EXT_NOTES,
-    CHANGE_DIAGRAM_INDEX
+    CHANGE_DIAGRAM_INDEX,
+    CHANGE_SELECTED_CHORD
  } from "../constants/actionTypes.js";
 
 export function changeProgression(the_stuff) {
@@ -57,6 +62,15 @@ export function changeDiagramIndex(j, i) {
         payload: {
             active_index: j,
             diagram_index: i
+        }
+    }
+} 
+export function changeSelectedChord(j, i) {
+    return {
+        type: CHANGE_SELECTED_CHORD,
+        payload: {
+            active_index: j,
+            visible_index: i
         }
     }
 } 

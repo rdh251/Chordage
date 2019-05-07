@@ -1,3 +1,5 @@
+// Copyright 2019 Ross Hall
+/* selection of root in control panel */
 import React, { Component } from 'react';
 import store from './store/index.js';
 import {connect} from 'react-redux';
@@ -5,8 +7,6 @@ import {
     changeRoot,
     changeAccidental
 } from './actions/index.js'
-
-import PropTypes from 'prop-types'; // data validation
 import {A, 
     B, 
     C, 
@@ -24,19 +24,10 @@ const mapStateToProps = state => {
         accidental: state.chords[state.active_index].accidental
     }
 }
-/*function mapDispatchToProps(dispatch) {
-    return {
-        changeRoot: root => dispatch(changeRoot(root))
-    },
-}*/
-
 class connected_RSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
-/*            active_index: store.getState().active_index,
-            root: store.getState().chords[ store.getState().active_index ].root,*/
-            /*accidental: store.getState().chords[ store.getState().active_index ].accidental,*/
             showRMenu: false,
             showAMenu: false,
         }
@@ -108,6 +99,5 @@ class connected_RSelect extends Component {
         )
     }
 }
-
 const RSelect = connect(mapStateToProps)(connected_RSelect); 
 export default RSelect;

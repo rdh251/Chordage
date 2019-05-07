@@ -1,19 +1,18 @@
+// Copyright 2019 Ross Hall
+/*selection of extension notes */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {changeExtNotes} from './actions/index.js'
-import PropTypes from 'prop-types'; // data validation
 import store from './store/index.js';
 
 const mapStateToProps = state => {
     return {
         ext_notes: state.chords[state.active_index].ext_notes,
+        colors: state.colors,
     }
 }
 
 class connected_ESelect extends Component {
-    constructor(props) {
-        super(props);
-    }
     extItemOnClick = (index) => {
         let arr = this.props.ext_notes.slice();
         arr[index] = !arr[index];
@@ -22,18 +21,23 @@ class connected_ESelect extends Component {
     render() {
         const {
             props: {
-                ext_notes
+                ext_notes,
+                colors
             },
             extItemOnClick
         } = this
 
         const ext_list_items = ext_notes.map(function(bool, index){
-            let class_list=""
+            let styles;
             if (bool) {
-                class_list += 'selected-note';
+                let color_index = ((index*2+7)%8);
+                if (color_index === 7){
+                    color_index--;
+                }
+                styles = {color: colors[color_index], border: "2px solid " + colors[color_index]}
             } 
             return <li 
-                className={class_list}
+                style={styles}
                 key={index}
                 onClick = {extItemOnClick.bind(this, index)}> <h6>{index * 2 + 7}</h6> </li>
         });

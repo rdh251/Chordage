@@ -1,3 +1,7 @@
+// Copyright 2019 Ross Hall 
+/* specificChord.js contains all the logic needed to go from a 
+ general chord description to a list of specific instances of that 
+ chord on a given fretboard.*/
 import {
     A,
     B,
@@ -9,7 +13,6 @@ import {
     SHARP,
     NATURAL,
     FLAT,
-    IONIAN,
     DORIAN,
     PHRYGIAN,
     LYDIAN,
@@ -18,29 +21,26 @@ import {
     LOCRIAN,
 } from '../constants/music'
 import {
-    general_chord,
     general_note
 } from './generalChord.js';
 
+/* A specific fret and string on a given fretboard*/
 export class note_instance {
     constructor(fret_number, string_number) {
         this.fret = fret_number;
         this.string = string_number;
     }
 }
-export class chord_instance {
-    constructor() {
-        this.tuning=[E, A, D, G, B, E];
-
-    }
-}
+/******************************************************************************** 
+ The entire fretboard and all operations on it are simulated on this one array !!! 
+ *********************************************************************************/
 let temp_string = [E, F, '*', G, '*', A, '*', B, C, '*', D, '*' ];
-let E_note = new general_note(E, NATURAL)
-let A_note = new general_note(A, NATURAL)
-let D_note = new general_note(D, NATURAL)
-let G_note = new general_note(G, NATURAL)
-let B_note = new general_note(B, NATURAL)
-let TUNING = [E_note, A_note, D_note, G_note, B_note, E_note];
+
+/* This class contain function for taking a general chord description to a general scale,
+a general scale to the notes that are included in the general chord. The fretboard is then
+scanned for these notes and their locations are stored in a datastructure, and finally a
+combination algorithm with a filter produces a list of all possible specific chord instances
+on a given fretboard. */
 export class chord_finder {
     constructor() {
         this.tuning=[E, A, D, G, B, E]; 
@@ -105,7 +105,7 @@ export class chord_finder {
                 if (index >= temp_string.length) {
                     index = index % temp_string.length;
                 }
-                if (temp_string[index] == '*') {
+                if (temp_string[index] === '*') {
                     if(index - 1 < 0) {
                         top_7.push(new general_note(temp_string[12], SHARP));
                     } else {
@@ -117,6 +117,8 @@ export class chord_finder {
             }
             return top_7; 
         }
+        /* The next bit of code determines if a scale shoud be represented
+        using sharps as accidentals or flats. */
         let start_fret = temp_string.indexOf(general_chord.root);
         if (general_chord.accidental === FLAT) {
             start_fret--;
@@ -154,7 +156,6 @@ export class chord_finder {
             for (let i = 0; i < sharp_scale.length; i++) {
                 if (previous_root === sharp_scale[i].root){
                     sharp_fail = true;
-                    //break;
                 }
                 if (sharp_scale[i].accidental === SHARP) {
                     sharp_count++;
@@ -190,7 +191,10 @@ export class chord_finder {
         }
         return notes_in_chord;
     }
+    // locate notes from chord on the fretboard
     getFingerPositions = (general_chord, tuning, h_fret_bound, l_fret_bound) => {
+        this.high_fret_bound = h_fret_bound;
+        this.low_fret_bound = l_fret_bound;
         let chord_notes = this.findChordNotes(general_chord);
         let tuning_temp_indexes = [];
         for (let i = 0; i < tuning.length; i++) {
@@ -199,23 +203,20 @@ export class chord_finder {
                 start_fret--;
                 if (start_fret < 0) {
                     start_fret = temp_string.length - 1;
-                }
-                
+                } 
             } else if (general_chord.accidental === SHARP) {
-                start_fret++;
+                //start_fret++;
                 if (start_fret >= temp_string.length){
                     start_fret = 0;
                 }
             }
             tuning_temp_indexes.push(start_fret);
         }
-
-
         let string_potentials = [];
         for (let i = 0; i < tuning_temp_indexes.length; i++){
             string_potentials.push([]);
-            for(let j = 0; j < h_fret_bound-l_fret_bound - 1; j++) { // Not sure why - 1 is needed here to 
-                let temp_index = tuning_temp_indexes[i] + l_fret_bound + j; // the correct upper bound
+            for(let j = 0; j <= h_fret_bound-l_fret_bound; j++) { 
+                let temp_index = tuning_temp_indexes[i] + l_fret_bound + j;
                 if (temp_index >= temp_string.length) {
                     temp_index = temp_index % temp_string.length;
                 }
@@ -244,6 +245,9 @@ export class chord_finder {
             string_potentials[i].push(null);
         }
 
+        /************************************************************
+         * The combination algorithm
+         ************************************************************/
         let arr = string_potentials;
         let n = arr.length;
         let indices = Array(n).fill(0);
@@ -257,10 +261,10 @@ export class chord_finder {
             for (let i = 0; i < n; i++) {
                 val = arr[i][indices[i]];
                 /* 0s and nulls not included in determining how many frets a chord spans */
-                if (val != 0 && val !== null && val > highest_fret) {
+                if (val !== 0 && val !== null && val > highest_fret) {
                     highest_fret = val;
                 }
-                if (val != 0 && val !== null && val < lowest_fret) {
+                if (val !== 0 && val !== null && val < lowest_fret) {
                     lowest_fret = val;
                 } 
                 new_chord.push(val);

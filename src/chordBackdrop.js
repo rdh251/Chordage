@@ -1,22 +1,19 @@
+// Copyright 2019 Ross Hall
+/* The ChordBackdrop component serves as a placeholder
+for the chordViz component. */
+
 import React, { Component } from 'react';
-import store from './store/index.js';
 import {connect} from 'react-redux';
-import theReducer from './reducers/index.js';
-import { changeActiveIndex } from './actions/index.js';
 import ChordViz from './chordViz.js';
 
 const mapStateToProps = state => {
     return {
         specific_chords_length: state.specific_chords[state.active_index].length,
-        visible_diagram_index: state.visible_diagram_indices[state.active_index]
+        visible_diagram_index: state.visible_diagram_indices[state.active_index],
+        selected_chord_index: state.selected_indices[state.active_index],
     }
 }
-
 class connected_ChordBackdrop extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {props: {
                 specific_chords_length,

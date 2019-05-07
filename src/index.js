@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import store from './store/index.js';
 import { Provider } from 'react-redux';
-/*import ADD_CHORD from "./actionTypes/index";*/
-
 
 import * as serviceWorker from './serviceWorker';
 

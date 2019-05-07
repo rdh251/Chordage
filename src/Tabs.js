@@ -1,10 +1,14 @@
+// Copyright 2019 Ross Hall
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // data validation
-
 import Tab from './Tab';
 
 // FROM: 
 // https://alligator.io/react/tabs-component/
+// Copyright 2019 Ross Hall
+/* controls which pane is displayed in the control panel,
+    define chord is the only pane built out for now.
+*/
 class Tabs extends Component {
     static propTypes = {
         children: PropTypes.instanceOf(Array).isRequired,
@@ -16,11 +20,9 @@ class Tabs extends Component {
             activeTab: this.props.children[0].props.label
         };
     }
-
     onClickTabItem = (tab) => {
         this.setState({activeTab: tab});
     }
-
     render() {
         const {
             onClickTabItem,
@@ -31,7 +33,6 @@ class Tabs extends Component {
                 activeTab,
             }
         } = this;
-
         return (
             <div className = 'tabs'>
                 <div className='tab-content'>

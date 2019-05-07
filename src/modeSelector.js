@@ -1,3 +1,5 @@
+// Copyright 2019 Ross Hall
+/* selection of mode in control panel */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {changeMode} from './actions/index.js'
@@ -8,7 +10,6 @@ import {IONIAN,
     MIXOLYDIAN, 
     AEOLIAN, 
     LOCRIAN} from './constants/music.js';
-import PropTypes from 'prop-types'; // data validation
 import store from './store/index.js';
 
 const mapStateToProps = state => {
@@ -16,7 +17,6 @@ const mapStateToProps = state => {
         mode: state.chords[state.active_index].mode,
     }
 }
-
 class connected_MSelect extends Component {
     constructor(props) {
         super(props);

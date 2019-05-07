@@ -1,29 +1,51 @@
+/****************************************************************************
+All CSS styles for chordage for Chordage are contained in this file 
+****************************************************************************/
 body {
-  margin: 0;
+  margin:0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(130, 0, 130)
+  background-color: rgb(130, 0, 130);
+}
+#root {
+  display: block; 
+  height: 100%;
+  width: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-#wrapper {
+/*************************************************************************
+The app wrap
+**************************************************************************/
+/*get div the size of the screen w/o percentages or vh!!!
+used to overcome differences in how various browsers calculate 
+the height of the window with or without the URL bar. */ 
+#wrapper { 
   position: fixed;
-  position: absolute;
+  /*height: 100%;*/
+  display:block;
+  background-color: red;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2000;
-  background-color: blue;
 }
+/* Used to prevent the URL bar from dissappearing and resizing the window
+when the user scrolls down*/
 
+#tester {
+  position: relative;
+  height: 100%;
+  /*background-color: white;*/
+  overflow-y: hidden;
+}
 /*************************************************
  Banner
 *************************************************/
@@ -32,19 +54,44 @@ header {
   top: 0;
   z-index: 1000;
   width: 100%;
-  height: 10%;
+  height: 7%;/*10%; *****************************/
   background-image: radial-gradient(rgb(0, 5, 20), rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 70, 5));
-  color: red;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: 0px 3px 10px black;
 }
 header h1 {
+  color: gold;
   margin: 0;
   font-size: 1.5em;
   padding-left: 10px;
-  text-shadow: 0 1px 5px yellow;
+  /*text-shadow: 0 1px 5px ;*/
   text-align: left;
+  width:70%;
+  float:left;
+  box-sizing:border-box;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#view-progression {
+  width:30%;
+  height: 100%;
+  color: red;
+  float: right;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#view-progression h5 {
+  width: 80%;
+  margin: auto;
+  border: 1px solid red;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 
@@ -54,47 +101,66 @@ header h1 {
 .card {
   height: 60%;
   background-color: rgb(255, 238, 217);
+  /*background-color: rgb(0, 10, 10);*/
 }
 
 #topCardHolder {
   position: fixed;
-  top: 2%;
+  top: 7%;
   z-index: 999;
   width: 100%;
-  height: 15%;
+  height: 6%;
   /*border: 2px solid yellow;*/
   box-sizing: border-box;
 }
 #card1 {
-  margin: 12% auto;
+  margin:0 auto;
+  padding: 0;
   width: 95%;
+  height: 100%;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-shadow: 0px 5px 5px black;
 }
-
-#botCardHolder {
-  position: relative;
-  z-index: 999;
+#color-index {
+  list-style: none;
+  /*border: 2px solid blue;*/
+  margin:0;
+  padding: 0;
   width: 100%;
-  height: 15%;
-  margin-bottom: -15%;
-
-  border: 2px solid yellow;
-  box-sizing: border-box;
+  height: 100%;
+}
+#color-index li {
+  display: inline-block;
+  width: 10.286%;
+  margin: 0 2% 0 2%;
+  height: 50%;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px black;
+}
+#color-index h6 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 80%;
+  left: 0;
 }
 #card2 {
+  height: 33.33%;
+  position: relative;
+  top: 66.66%;
   margin: 0vh auto;
   width: 95%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   box-shadow: 0px -5px 5px black;
+  z-index:0;
 }
 #card2 div {
   margin: 2%;
   padding: 0;
   width: 35%;
-  height: 50%;
+  height: 70%;
   box-sizing: border-box;
   border: 1px solid red;
   font-size: .5em;
@@ -107,36 +173,101 @@ header h1 {
 }
 
 #option-menu{
-  position: relative;
-  top:50%;
+  position: absolute;
+  top: -200%;
+  height: 100%;
   width: 50%;
-  margin: -50% auto 0;
+  margin: 0% auto 0;
   list-style: none;
   padding: 0;
   z-index: 99999999999;
   background-color: white;
   color: black;
   float: left;
-  border-radius: 2px;
+  border-radius: 5px;
+}
+#option-menu li{
+  border-bottom: 2px solid red;
+  background-color: white;
+  background-color: rgb(255, 238, 217);
+  height: 100%;
+  border-radius: 2px
+}
+#option-menu h6{
+  padding: 0;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
 }
 #card2 h3 {
   margin: 0;
   padding: 0;
 }
+/***********************************************************
+Slide controls the swipe feature accessing the control panel
+***********************************************************/
+#slide {
+  position: relative;
+  top: 0;
+  z-index: 998;
+  /*border: 2px solid red;*/
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+/*------------------------------------------------------
+Spacer pushes the description panel down */
+#spacer{
+  position: relative;
+  z-index: -998;
+  /*border: 4px solid red;*/
+  box-sizing: border-box;
+  height: 72%;/* 100% - chord selector - 1/2 botcardholder*/
+  margin: 0;
+  padding: 0;
+}
+
 
 /****************************************************
-  Chord Backdrop
+  Chord /Bhord Backdrop Area
 ****************************************************/
 #chordBackdrop {
   position: fixed;
-  top: 10%;
+  top: 7%;
   z-index: 999;
   width: 100%;
-  height: 80%;
+  height: 83%;
   background-image: radial-gradient(rgb(15, 0, 15), rgb(30, 0, 30), rgb(60, 0, 60), rgb(130, 0, 130));
-  border: 3px solid yellow;
   box-sizing: border-box;
+  /*border: 3px solid yellow;*/
   align-content:center;
+}
+#bhordBackdrop {
+  position: fixed;
+  top: 7%;
+  z-index: -999;
+  width: 100%;
+  height: 83%;
+  background-image: radial-gradient(rgb(15, 0, 15), rgb(30, 0, 30), rgb(60, 0, 60), rgb(130, 0, 130));
+  box-sizing: border-box;
+  /*border: 3px solid yellow;*/
+  align-content:center;
+}
+#the-chosen-one {
+  position:relative;
+  width: 100%;
+  top: 73%;
+  font-size: .7em;
+  box-sizing: border-box;
+  /*border: 1px solid lightgreen;*/
+  padding: 0;  
+  margin: auto;
+  color: white;
+  z-index: 100000000;
+  text-align: center;
 }
 #index-indicator {
   position: fixed;
@@ -179,7 +310,7 @@ header h1 {
   display: flex;
   overflow-x: scroll;
   box-sizing: border-box;
-  border: 3px solid red;
+  /*border: 3px solid red;*/
   z-index: 1000;
   
   scroll-snap-points-x: repeat(100%);
@@ -195,7 +326,7 @@ header h1 {
   height: 100%;
   display: inline-block;
   box-sizing: border-box;
-  border: 3px solid cyan;
+  /*border: 3px solid cyan;*/
   z-index: 100000;
 
   scroll-snap-align: center; 
@@ -208,78 +339,77 @@ header h1 {
   position: relative;
   top: 50%;
   transform: translateY(-60%);
-}
-#chord-diagram {
-  widows: 100%;
-  height: 100%;
-  border: 2px solid cyan;
-  box-sizing: border-box;
+  z-index:-100;
 }
 
-#slide {
-  position: fixed;
-  top: 0;
-  z-index: 998;
-  /*border: 2px solid red;*/
-  height: 100%;
-  width: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-#spacer{
-  position: relative;
-  z-index: -998;
-  border: 2px solid green;
-  box-sizing: border-box;
-  height: 86%;
-  margin: 0;
-}
 /***************************************************
-Description
+Control Panel
 ****************************************************/
-#description {
+#description-wrap {
+  height: 79.8%; /* for the golden ratio! + 18*/
+  box-sizing:border-box;
+  overflow: hidden;
   position: relative;
-  z-index: 1000;
-  height: 70%;
-  background-image: radial-gradient(rgb(0, 5, 20), rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 70, 5));
+  z-index: 1000; 
+}
+#tri-space {
+  height: 22.55%; /*18 /.798*/
+  /*border: 2px solid red;*/
+  box-sizing:border-box;
+  position: relative;
+  z-index: -22222222;
+}
+#description {
+  position:relative;
+  height: 77.44%;/*61.8 / .798; /* for the golden ratio! */
+  z-index: 100000;
+  background-color:black;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   box-shadow: 0px -3px 10px black;
 }
 #triHolder {
-  border: 1px solid transparent;
-  height: 1px;
-  z-index:1000000
+  border: 1% solid lightgreen;
+  width: 100%;
+  height: 0;
+  z-index:1000000;
+}
+#tri-box {
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #triangle {
   z-index: 1000000;
   position: relative;
+  display: block;
   height: 0;
   width: 0;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
   border-bottom: 32px solid gold;
-  margin: 20px auto 0;
   -webkit-filter: drop-shadow(0px 0px 10px yellow);
-  filter: drop-shadow(0px 0px 10px yellow);
+  filter: drop-shadow(0px 0px 10px black);
+
 }
 
 /******************************************************/
-/* chord selection */
+/* chord selection with snap scrolling*/
 #chordHolder {
-  height: 20%;
+  height: 16.18%; /* 10 / .618 */
   width: 100%;
-  margin: 2% auto 2%;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 1% 1% 1%;
   display: flex;
   overflow-x: scroll;
-  scroll-snap-points-x: repeat(33.33%);
+  scroll-snap-points-x: repeat(33.33333%);
   scroll-snap-type: mandatory;
   ms-scroll-snap-type: mandatory;
   -webkit-scroll-snap-type: mandatory;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  background-color: rgb(26, 65, 26);
+  /*background-color: rgb(26, 65, 26);*/
   /*border: 2px solid yellow;*/
   box-sizing: border-box;
   overflow: auto;
@@ -292,6 +422,8 @@ Description
   width: 33.33%;
   height: 100%;
   display: inline-block;
+  /*background-color: rgb(26, 65, 26);*/
+  background-image: radial-gradient( rgb(0, 20, 10), rgb(0, 50, 5));
   border: 1px solid black;
   box-sizing: border-box;
   color: white;
@@ -315,26 +447,39 @@ Description
   border-bottom: 2px solid gold
 }
 
+/****************************************************
+  Tab Section
+****************************************************/
+.tabs {
+  height: 83.82%; /*100 - chord holder height */
+}
 
-
+/*----------------------------------------
+Tab Panels*/
+.tab-content {
+  color: white;
+  font-size: .75em;
+  height: 82%;
+  width: 100%;
+  padding: 0 2% 0 2%;
+  box-sizing: border-box;
+  
+}
+.tab-content h3{
+  margin: 0;
+  padding: 0;
+}
 .panel-wrap {
   height: 100%;
   width: 100%;
-  background-color: rgb(26, 65, 26);
-}
-#panelWrap {
-  height: 70%;
-  width: 95%;
-  margin: 0 auto 0;
-  /*border: 2px solid yellow;*/
+  padding: 2%;
   box-sizing: border-box;
+  /*background-color: rgb(26, 65, 26);*/
+  background-image: radial-gradient(rgb(0, 10, 10), rgb(0, 20, 10), rgb(0, 50, 5));
 }
-#panel1 {
-  width: 100%;
-  height: 100%;
-}
+
 #theroot {
-  height: 50%;
+  height: 30%;
   width: 50%;
   float: left;
   margin: 0;
@@ -347,8 +492,9 @@ Description
 }
 #theroot h3{
   box-sizing: border-box;
-  padding-top: 10%;
+  padding-top: 1%;
   height: 30%;
+  font-size: 1.7em;
 
 }
 #theroot h6 {
@@ -360,12 +506,13 @@ Description
   transform: translateY(-50%);
 }
 #root-container {
-  margin: 2%;
+  box-sizing: border-box;
+  padding: 2%;
   height: 70%
 }
 #the-root {
   width: 58%;
-  height: 50%;
+  height: 100%;
   margin-right: 2%;
   float: left;
   background-color: white;
@@ -374,7 +521,7 @@ Description
 }
 #root-menu {
   width: 58%;
-  height: 240%;
+  height: 500%;
   float: left;
   overflow: scroll;
   list-style: none;
@@ -389,10 +536,11 @@ Description
 #root-menu li {
   height: 14%;
   z-index: 1001;
+  border-bottom: 1px solid red;
 }
 #the-accidental {
   width: 40%;
-  height: 50%;
+  height: 100%;
   float: left;
   background-color: white;
   color: black;
@@ -400,7 +548,7 @@ Description
 }
 #accidental-menu {
   width: 40%;
-  height: 100%;
+  height: 250%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -415,11 +563,12 @@ Description
 #accidental-menu li {
   height: 33%;
   z-index: 1001;
+  border-bottom: 1px solid red;
 }
 
 
 #mode {
-  height: 50%;
+  height: 30%;
   width: 50%;
   float: left;
   margin: 0;
@@ -439,22 +588,24 @@ Description
 #mode h3 {
   box-sizing: border-box;
   height: 30%;
-  padding-top: 10%;
+  padding-top: 1%;
+  font-size: 1.7em;
 }
 #mode h6 {
   margin: 0;
   padding: 0;
-  font-size: 1.5em;
+  font-size: 1.6em;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
 #mode-container {
-  margin: 2%;
+  box-sizing: border-box;
+  padding: 2%;
   height: 70%;
 }
 #the-mode {
-  height: 50%;
+  height: 100%;
   background-color: white;
   color: black;
   border-radius: 2px;
@@ -467,33 +618,104 @@ Description
   padding: 0;
   position: relative;
   z-index: 1000;
-  height: 240%;
+  height: 500%;
   border-radius: 2px;
   overflow: scroll;
 }
 #mode-list li {
   height: 14%;
+  border-bottom: 1px solid red;
 }
 
 
 
-
-
-/****************************************************
-  Tab Section
-****************************************************/
-.tabs {
-  height: 80%;
-}
-/***************************************************
-Tab Navigation
-****************************************************/
-.tab-list {
-  border-bottom: 2px solid white;
+/*-----------------------------------------------
+note selection */
+#note-selection {
+  float:left;
+  width: 100%;
+  height: 70%;
+  padding: 5% 0 5% 0;
   box-sizing: border-box;
-  height: 20%;
+}
+
+#triad, #extensions {
+  height: 50%;
+  width: 100%;
+  padding: 2% 0 2% 0;
+  float: left;
+  /*border: 2px solid cyan;*/
+  box-sizing: border-box;
+  text-align: left;
+}
+
+#triad h3, #extensions h3 {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+#triad h3 span, #extensions h3 span {
   margin: 0;
-  padding: 2.5%;
+  padding: 0;
+  display: block;
+  font-size: 1.5em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#tri-list, #ext-list {
+  width: 75%;
+  height: 100%;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#tri-list li {
+  display: inline-block;
+  text-align: center;
+  width: 15%;
+  margin: 0 9%;
+  height: 100%;
+  overflow: auto;
+  box-sizing:border-box;
+  border-radius: 5px;
+}
+#ext-list li {
+  display: inline-block;
+  text-align: center;
+  width: 15%;
+  margin: 0 5%;
+  height: 100%;
+  overflow: auto;
+  box-sizing:border-box;
+  border-radius: 5px;
+}
+#tri-list h6, #ext-list h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#tri-list li.selected-note, #ext-list li.selected-note {
+  color: red;
+  border: 1px solid blue;
+  box-sizing: border-box;
+}
+
+
+
+/*--------------------------------------------------
+Tab Navigation */
+
+.tab-list {
+  height: 18%;
+  margin: 0;
+  padding: 2%;
+  box-sizing: border-box;
 }
 .tab-list-item {
   height: 100%;
@@ -519,90 +741,10 @@ Tab Navigation
   margin: 0 0 0 2%;
 }
 .tab-list-active {
+  box-sizing: border-box;
   background-color:lightgreen;
   border:solid gold;
-  border-width: 0px 2px 2px 2px;
-}
-/********************************************
-Tab Panels
-*********************************************/
-.tab-content {
-  color: white;
-  font-size: .75em;
-  height: 80%;
-  width: 95%;
-  margin: auto;
-}
-.tab-content h3{
-  margin: 0;
-  padding: 0;
-}
-
-/*-----------------------------------------------
-note selection */
-
-#triad, #extensions {
-  height: 25%;
-  width: 100%;
-  padding: 2% 0 2% 0;
-  float: left;
-  /*border: 2px solid cyan;*/
-  box-sizing: border-box;
-  text-align: left;
-}
-#extensions {
-  /*border: 2px solid red;*/
-}
-#triad h3, #extensions h3 {
-  width: 25%;
-  height: 100%;
-  float: left;
-}
-#triad h3 span, #extensions h3 span {
-  margin: 0;
-  padding: 0;
-  display: block;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-#tri-list, #ext-list {
-  width: 75%;
-  height: 100%;
-  float: left;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#tri-list li {
-  display: inline-block;
-  text-align: center;
-  width: 15%;
-  margin: 0 9%;
-  height: 100%;
-  overflow: auto;
-}
-#ext-list li {
-  display: inline-block;
-  text-align: center;
-  width: 15%;
-  margin: 0 5%;
-  height: 100%;
-  overflow: auto;
-}
-#tri-list h6, #ext-list h6 {
-  margin: 0;
-  padding: 0;
-  font-size: 1em;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#tri-list li.selected-note, #ext-list li.selected-note {
-  color: red;
-  border: 1px solid blue;
-  box-sizing: border-box;
+  border-width: 2px 2px 2px 2px;
 }
 
 /****************************************************************/

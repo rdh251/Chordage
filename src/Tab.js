@@ -1,3 +1,7 @@
+// Copyright 2019 Ross Hall
+/* controls which pane is displayed in the control panel,
+    define chord is the only pane built out for now.
+*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // data validation
 
@@ -12,8 +16,7 @@ class Tab extends Component {
     onClick = () => {
         const {label, onClick} = this.props;
         onClick(label);
-    }
-     
+    } 
     render() {
         const {
             onClick,
@@ -22,14 +25,11 @@ class Tab extends Component {
                 label,
             },
         } = this;
-        let label_arr = label.split(' ');
-        
+        let label_arr = label.split(' ');   
         let className = 'tab-list-item';
-
         if (activeTab === label) {
             className += ' tab-list-active';
         }
-
         return (
             <li
                 className = {className}
@@ -38,5 +38,4 @@ class Tab extends Component {
         );
     }
 }
-
 export default Tab;

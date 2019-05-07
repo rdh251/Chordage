@@ -1,33 +1,21 @@
+// Copyright 2019 Ross Hall
+/* The ChordViz component takes a list on specific chord instances and 
+translates them into a list of chord diagram SVG's */
 import React, { Component } from 'react';
 import store from './store/index.js';
 import {connect} from 'react-redux';
 import {changeDiagramIndex} from './actions/index.js';
-import ChordTab from './chordTab.js';
-import {general_chord, general_note} from './classes/generalChord.js';
-import {chord_finder} from './classes/specificChord.js';
-import PropTypes from 'prop-types'; // data validation
-import {A, 
-    B, 
-    C, 
-    D, 
-    E, 
-    F, 
-    G,
-    SHARP,
-    NATURAL,
-    FLAT,
-    MIXOLYDIAN} from './constants/music.js';
 
 const mapStateToProps = state => {
     return {
         active_index: state.active_index,
         specific_chords: state.specific_chords[state.active_index],
         visible_diagram_indices: state.visible_diagram_indices,
+        selected_chord_index: state.selected_indices[state.active_index],
         scale: state.scales[state.active_index],
         colors: state.colors
     }
 }
-
 class connected_ChordViz extends Component {
     constructor(props) {
         super(props);
@@ -36,9 +24,9 @@ class connected_ChordViz extends Component {
     handleScroll() {
         let el = document.getElementById('svg-list')
         let scrollOffset = el.scrollLeft;
-        let itemWidth = el.offsetWidth / 1.0;
+        let itemWidth = el.offsetWidth;
         let i = 0;
-        while ((i) * itemWidth <= scrollOffset - (itemWidth/2.0)) {
+        while ((i) * itemWidth <= scrollOffset - (itemWidth / 2)) {
             i++;
         }
         if (i !== this.props.visible_diagram_indices[this.props.active_index]) {
@@ -103,58 +91,58 @@ class connected_ChordViz extends Component {
             }
         }
         return(
-            <li>
-                <span>{this.props.visible_diagram_indices[this.props.active_index]}</span>
-                <svg class='the-svg' style={{margin: 'auto', width:'35%', height:'35%'}}>
-                    {y_coords.map((y_coord, index)=> {
-                        if (index === 0) {
-                            return <line x1='0%' y1={y_coord} x2='100%' y2={y_coord} style={{stroke: 'orange', width: '12'}}></line>;
-                        } else {
-                            return <line x1={fret_x1} y1={y_coord} x2={fret_x2} y2={y_coord} style={{stroke: 'gold', width: '10'}}></line>;
-                        }
-                    })}
-                    <text x='2%' y={(fret_span-1) + '%'} fill="white">0</text>
-                    <text x='2%' y={(fret_span+5) + '%'} fill="white">{diagram_base}</text>
-                    {x_coords.map(x_coord => {
-                        return <line x1={x_coord} y1='0%' x2={x_coord} y2='100%' style={{stroke: 'white', width: '10'}}></line>;
-                    })}
-                    {shifted_notes.map((note, index) => {
-                        if (note === null) {
-                            return
-                        } else {
-                            let x_center = string_span*(index+1) +'%';
-                            let y_center = fret_span*note.index - circle_radius + '%';
-                            let color;
-                            for(let i = 0; i<colors.length; i++) {
-                                if (note.note.root === scale[i].root &&
-                                    note.note.accidental === scale[i].accidental) {
-                                        color=colors[i];
-                                    }
-                                }  
-                            return <circle cx= {x_center} cy={y_center} r={radius_str} fill={color}></circle>
-                        }
-                    })}
-                </svg>
-            </li>
+            <svg className='the-svg' style={{margin: 'auto', width:'50%', height:'50%'}}>
+                {y_coords.map((y_coord, index)=> {
+                    if (index === 0) {
+                        return <line key={index} x1='0%' y1={y_coord} x2='100%' y2={y_coord} style={{stroke: 'orange', width: '12'}}></line>;
+                    } else {
+                        return <line key={index} x1={fret_x1} y1={y_coord} x2={fret_x2} y2={y_coord} style={{stroke: 'gold', width: '10'}}></line>;
+                    }
+                })}
+                <text x='2%' y={(fret_span-1) + '%'} fill="white">0</text>
+                <text x='2%' y={(fret_span+5) + '%'} fill="white">{diagram_base}</text>
+                {x_coords.map((x_coord, index) => {
+                    return <line key={index} x1={x_coord} y1='0%' x2={x_coord} y2='100%' style={{stroke: 'white', width: '10'}}></line>;
+                })}
+                {shifted_notes.map((note, index) => {
+                    if (note === null) {
+                        return null
+                    } else {
+                        let x_center = string_span*(index+1) +'%';
+                        let y_center = fret_span*note.index - circle_radius + '%';
+                        let color;
+                        for(let i = 0; i<colors.length; i++) {
+                            if (note.note.root === scale[i].root &&
+                                note.note.accidental === scale[i].accidental) {
+                                    color=colors[i];
+                                }
+                            }  
+                        return <circle key={index} cx={x_center} cy={y_center} r={radius_str} fill={color}></circle>
+                    }
+                })}
+            </svg>
         );
     }
     render() {
         const {
             props: {
                 specific_chords,
+                selected_chord_index,
                 scale,
                 colors
             },
             handleScroll,
             makeSVG
         } = this;
-/******************************************************************************************** */
-
-        //let arrss = [[1, null, 1, 1, 1, null]];
-        //let arrs = [[9, 11, 11, 10, 9, 9], [7, null, 8, 8, 7, null], [4, null, 4, 4, 4, null]];
         return(
             <ul id='svg-list' onScroll={handleScroll}>
-                {specific_chords.map(arr => {return makeSVG(arr, scale, colors)})}    
+                {specific_chords.map((arr, index) => {
+                    if (index === selected_chord_index) {
+                        return <li key={index} className='selected'><h6 id='the-chosen-one'>Selected</h6> {makeSVG(arr, scale, colors)}</li>
+                    } else {
+                        return <li key={index}>{makeSVG(arr, scale, colors)}</li>
+                    }
+                })}    
             </ul>
         );
     }
